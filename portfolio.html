@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aniket Roy | Portfolio</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/particles.js"></script>
+    <style>
+        :root {
+            --primary: #00ff8c;
+            --dark: #121212;
+            --darker: #1a1a1a;
+            --light: #ffffff;
+            --light-dark: #f0f0f0;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        body {
+            background: var(--dark);
+            color: white;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* Navbar */
+        .navbar {
+            position: fixed;
+            width: 100%;
+            padding: 1rem;
+            background: rgba(18, 18, 18, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            position: relative;
+            transition: 0.3s;
+            font-size: 1rem;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: 0.3s;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .menu-toggle {
+            display: none;
+            cursor: pointer;
+            font-size: 1.5rem;
+            color: white;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 2rem;
+            position: relative;
+            padding-top: 80px;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, var(--primary), #00b4d8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        /* Sections */
+        section {
+            padding: 5rem 2rem;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: 1s;
+        }
+
+        section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            text-align: center;
+        }
+
+        /* Cards */
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); /* Adjusted min width */
+            gap: 1rem; /* Reduced gap */
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .card {
+            background: var(--darker);
+            padding: 1rem; /* Reduced padding */
+            border-radius: 15px;
+            transition: 0.3s;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center; /* Center text */
+        }
+
+        .card:hover {
+            transform: translateY(-5px); /* Slight lift on hover */
+            box-shadow: 0 4px 15px rgba(0, 255, 136, 0.3);
+        }
+
+        /* Profile Picture Hover Effect */
+        .profile-photo {
+            display: block;
+            margin: 20px auto;
+            width: 150px;
+            border-radius: 50%;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .profile-photo:hover {
+            transform: scale(1.1);
+            box-shadow: 0 4px 15px rgba(0, 255, 136, 0.5);
+        }
+
+        /* Animations */
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .tech-stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .tech-item {
+            background: rgba(0, 255, 136, 0.1);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            border: 1px solid var(--primary);
+            transition: 0.3s;
+            font-size: 0.9rem;
+        }
+
+        .timeline {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .timeline::after {
+            content: '';
+            position: absolute;
+            width: 4px;
+            height: 0%;
+            background: var(--primary);
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .timeline-item {
+            padding: 1rem 2rem;
+            background: var(--darker);
+            border-radius: 10px;
+            margin: 1rem 0;
+            position: relative;
+            left: 50%;
+            transform: translateX(-50%);
+            transition: background 0.3s, transform 0.3s;
+        }
+
+        .timeline-item:hover {
+            background: rgba(0, 255, 136, 0.1);
+            transform: translateX(-50%) translateY(-5px);
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .social-links a {
+            color: var(--primary);
+            font-size: 2rem;
+            transition: 0.3s;
+        }
+
+        .social-links a:hover {
+            transform: scale(1.2);
+        }
+
+        /* ================== Responsive Design ================== */
+        @media (max-width: 1200px) {
+            .card-grid {
+                max-width: 900px;
+            }
+        }
+
+        @media (max-width: 992px) {
+            .hero h1 {
+                font-size: 3.5rem;
+            }
+            
+            .section-title {
+                font-size: 2.2rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 0.8rem;
+            }
+
+            .menu-toggle {
+                display: block;
+            }
+
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 60px;
+                left: 0;
+                width: 100%;
+                background: rgba(18, 18, 18, 0.95);
+                z-index: 1000;
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .hero {
+                padding: 6rem 1.5rem 2rem;
+            }
+
+            .hero h1 {
+ font-size: 2.5rem;
+            }
+
+            section {
+                padding: 4rem 1.5rem;
+            }
+
+            .timeline::after {
+                left: 20px;
+            }
+
+            .timeline-item {
+                left: 0;
+                transform: none;
+                margin-left: 40px;
+                width: calc(100% - 40px);
+            }
+
+            .card {
+                padding: 1.5rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .nav-links {
+                gap: 1.5rem;
+                font-size: 0.9rem;
+            }
+
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+                margin-bottom: 2rem;
+            }
+
+            .profile-photo {
+                width: 120px;
+            }
+
+            .social-links {
+                gap: 1.5rem;
+            }
+
+            .tech-item {
+                font-size: 0.85rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .nav-links {
+                flex-direction: column;
+                gap: 0.75rem;
+                text-align: center;
+            }
+
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+
+            .card-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .section-title {
+                font-size: 1.8rem;
+            }
+
+            .profile-photo {
+                width: 100px;
+            }
+
+            .social-links a {
+                font-size: 1.75rem;
+            }
+
+            .timeline-item {
+                padding: 1rem;
+                margin-left: 30px;
+            }
+        }
+
+        @media (max-width: 360px) {
+            .hero h1 {
+                font-size: 1.6rem;
+            }
+            
+            .section-title {
+                font-size: 1.6rem;
+            }
+            
+            .card {
+                padding: 1rem;
+            }
+        }
+
+        @media (hover: none) {
+            .card:hover {
+                transform: none;
+                box-shadow: none;
+            }
+            
+            .nav-links a:hover::after {
+                width: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="menu-toggle" onclick="toggleMenu()">☰</div>
+        <ul class="nav-links">
+            <li><a href="#skills">Skills</a></li>
+            <li><a href="#experience">Experience</a></li>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#achievements">Achievements</a></li>
+            <li><a href="#education">Education</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <section class="hero">
+        <div>
+            <img src="profile.jpg.jpeg" alt="Aniket Roy" class="profile-photo">
+            <h1>Aniket Roy</h1>
+            <h2>Full Stack Developer</h2>
+        </div>
+    </section>
+
+    <section id="skills">
+        <h2 class="section-title">Technical Skills</h2>
+        <div class="card-grid">
+            <div class="card">HTML</div>
+            <div class="card">CSS</div>
+            <div class="card">JavaScript</div>
+            <div class="card">Flask</div>
+            <div class="card">Node.js</div>
+            <div class="card">Machine Learning</div>
+            <div class="card">MongoDB</div>
+            <div class="card">Java</div>
+            <div class="card">Python</div>
+            <div class="card">PHP</div>
+            <div class="card">MySQL</div>
+            <div class="card">C/C++</div>
+            <div class="card">MS Excel</div>
+        </div>
+    </section>
+
+    <section id="experience">
+        <h2 class="section-title">Experience</h2>
+        <div class="timeline">
+            <div class="timeline-item">
+                <h3>Web Development (Intern) at CodeSpeedy Pvt. Ltd.</h3>
+                <p>April 2024 - May 2024</p>
+                <p>Contributed to web development tasks by creating and enhancing websites using HTML, CSS, and JavaScript. </p>
+            </div>
+            <div class="timeline-item">
+                <h3>Intern at ABC Ltd</h3>
+                <p>Jan 2021 - May 2021</p>
+                <p>Assisted in the development of a mobile application using React Native.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="projects">
+        <h2 class="section-title">Projects</h2>
+        <div class="card-grid">
+            <div class="card">
+                <h3>Student Performance Predictor</h3>
+                <p>Developed an ML model predicting exam grades with 95% accuracy.</p>
+            </div>
+            <div class="card">
+                <h3>Clear Clutter</h3>
+                <p>Built a Node.js app for automated file sorting by extension.</p>
+            </div>
+            <div class="card">
+                <h3>User Authentication System</h3>
+                <p>Developed a secure login and signup system using PHP, MySQL, and session management for authentication.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="achievements">
+        <h2 class="section-title">Achievements</h2>
+        <div class="card-grid">
+            <div class="card">
+                <h3>Coding Competition Winner</h3>
+                <p>Won the Inter-College Coding Competition, showcasing problem-solving and algorithmic skills.</p>
+            </div>
+            <div class="card">
+                <h3>Smart India Hackathon 2024 Finalist</h3>
+                <p>Selected in the internal hackathon to represent Dr. B.C. Roy Engineering College at SIH 2024.</p>
+            </div>            
+        </div>
+    </section>
+
+    <section id="education">
+        <h2 class="section-title">Education</h2>
+        <div class="card-grid">
+            <div class="card">
+                <h3>Master of Computer Application</h3>
+                <p>Dr. B.C. Roy Engineering College, Durgapur (2023 - 2025)</p>
+            </div>
+            <div class="card">
+                <h3>Bachelor of Commerce</h3>
+                <p>Indira Gandhi National Open University, New Delhi (2019 - 2023)</p>
+            </div>
+            <div class="card">
+                <h3>Higher Secondary</h3>
+                <p>Kanksha High School, State Board (2018 - 2019)</p>
+            </div>
+            <div class="card">
+                <h3>Secondary Education</h3>
+                <p>Ramakrishna Asrama Vidyapeeth, State Board (2016 - 2017)</p>
+            </div>
+            
+        </div>
+    </section>
+
+    <section id="contact">
+        <h2 class="section-title">Let's Connect</h2>
+        <div class="social-links">
+            <a href="https://github.com/aniketroy9172014" target="_blank"><i class="fab fa-github"></i></a>
+            <a href="www.linkedin.com/in/aniket-roy-94149020a" target="_blank"><i class="fab fa-linkedin"></i></a>
+            <a href="https://twitter.com/yourusername" target="_blank"><i class="fab fa-twitter"></i></a>
+            <a href="mailto:your.email@example.com"><i class="far fa-envelope"></i></a>
+        </div>
+    </section>
+
+    <script>
+        function toggleMenu() {
+            const navLinks = document.querySelector('.nav-links');
+            navLinks.classList.toggle('active');
+        }
+
+        // Intersection Observer for scroll animations
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('section').forEach(section => {
+            observer.observe(section);
+        });
+
+        // Smooth scroll for navigation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>
