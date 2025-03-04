@@ -92,12 +92,16 @@
         }
 
         .hero h1 {
-            font-size: 4rem;
+            font-size: 10rem;
             margin-bottom: 1rem;
             background: linear-gradient(45deg, var(--primary), #00b4d8);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             animation: float 3s ease-in-out infinite;
+        }
+
+        .hero h2 {
+            font-size: 3.5rem;
         }
 
         /* Sections */
@@ -122,31 +126,61 @@
         /* Cards */
         .card-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); /* Adjusted min width */
-            gap: 1rem; /* Reduced gap */
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
             max-width: 1200px;
             margin: 0 auto;
         }
 
         .card {
             background: var(--darker);
-            padding: 1rem; /* Reduced padding */
+            padding: 1rem;
             border-radius: 15px;
             transition: 0.3s;
             border: 1px solid rgba(255, 255, 255, 0.1);
-            text-align: center; /* Center text */
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
         }
 
         .card:hover {
-            transform: translateY(-5px); /* Slight lift on hover */
+            transform: translateY(-5px);
             box-shadow: 0 4px 15px rgba(0, 255, 136, 0.3);
+        }
+
+        /* Progress Bar Styles */
+        .progress-bar {
+            background-color: var(--darker);
+            border-radius: 10px;
+            height: 10px;
+            margin: 1rem 0;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .progress-fill {
+            background: linear-gradient(90deg, var(--primary), #00b4d8);
+            height: 100%;
+            width: 0;
+            border-radius: 10px;
+            transition: width 1s ease-in-out;
+            position: relative;
+        }
+
+        .progress-text {
+            display: block;
+            text-align: center;
+            font-size: 0.9rem;
+            color: var(--primary);
+            margin-top: 0.5rem;
         }
 
         /* Profile Picture Hover Effect */
         .profile-photo {
             display: block;
             margin: 20px auto;
-            width: 150px;
+            width: 300px;
             border-radius: 50%;
             transition: transform 0.3s, box-shadow 0.3s;
         }
@@ -154,62 +188,6 @@
         .profile-photo:hover {
             transform: scale(1.1);
             box-shadow: 0 4px 15px rgba(0, 255, 136, 0.5);
-        }
-
-        /* Animations */
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-20px); }
-        }
-
-        .tech-stack {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 1rem;
-            margin-top: 1rem;
-        }
-
-        .tech-item {
-            background: rgba(0, 255, 136, 0.1);
-            padding: 0.5rem 1rem;
-            border-radius: 20px;
-            border: 1px solid var(--primary);
-            transition: 0.3s;
-            font-size: 0.9rem;
-        }
-
-        .timeline {
-            position: relative;
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        .timeline::after {
-            content: '';
-            position: absolute;
-            width: 4px;
-            height: 0%;
-            background: var(--primary);
-            top: 0;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-        }
-
-        .timeline-item {
-            padding: 1rem 2rem;
-            background: var(--darker);
-            border-radius: 10px;
-            margin: 1rem 0;
-            position: relative;
-            left: 50%;
-            transform: translateX(-50%);
-            transition: background 0.3s, transform 0.3s;
-        }
-
-        .timeline-item:hover {
-            background: rgba(0, 255, 136, 0.1);
-            transform: translateX(-50%) translateY(-5px);
         }
 
         .social-links {
@@ -229,7 +207,13 @@
             transform: scale(1.2);
         }
 
-        /* ================== Responsive Design ================== */
+        /* Animations */
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        /* Responsive Design */
         @media (max-width: 1200px) {
             .card-grid {
                 max-width: 900px;
@@ -275,22 +259,11 @@
             }
 
             .hero h1 {
- font-size: 2.5rem;
+                font-size: 2.5rem;
             }
 
             section {
                 padding: 4rem 1.5rem;
-            }
-
-            .timeline::after {
-                left: 20px;
-            }
-
-            .timeline-item {
-                left: 0;
-                transform: none;
-                margin-left: 40px;
-                width: calc(100% - 40px);
             }
 
             .card {
@@ -313,16 +286,12 @@
                 margin-bottom: 2rem;
             }
 
-            .profile-photo {
-                width: 120px;
-            }
-
             .social-links {
                 gap: 1.5rem;
             }
 
-            .tech-item {
-                font-size: 0.85rem;
+            .profile-photo {
+                width: 120px;
             }
         }
 
@@ -334,7 +303,11 @@
             }
 
             .hero h1 {
-                font-size: 1.8rem;
+                font-size: 4rem;
+            }
+
+            .hero h2 {
+                font-size: 1.7rem;
             }
 
             .card-grid {
@@ -345,31 +318,12 @@
                 font-size: 1.8rem;
             }
 
-            .profile-photo {
-                width: 100px;
-            }
-
             .social-links a {
                 font-size: 1.75rem;
             }
 
-            .timeline-item {
-                padding: 1rem;
-                margin-left: 30px;
-            }
-        }
-
-        @media (max-width: 360px) {
-            .hero h1 {
-                font-size: 1.6rem;
-            }
-            
-            .section-title {
-                font-size: 1.6rem;
-            }
-            
-            .card {
-                padding: 1rem;
+            .profile-photo {
+                width: 230px;
             }
         }
 
@@ -377,10 +331,6 @@
             .card:hover {
                 transform: none;
                 box-shadow: none;
-            }
-            
-            .nav-links a:hover::after {
-                width: 0;
             }
         }
     </style>
@@ -409,31 +359,109 @@
     <section id="skills">
         <h2 class="section-title">Technical Skills</h2>
         <div class="card-grid">
-            <div class="card">HTML</div>
-            <div class="card">CSS</div>
-            <div class="card">JavaScript</div>
-            <div class="card">Flask</div>
-            <div class="card">Node.js</div>
-            <div class="card">Machine Learning</div>
-            <div class="card">MongoDB</div>
-            <div class="card">Java</div>
-            <div class="card">Python</div>
-            <div class="card">PHP</div>
-            <div class="card">MySQL</div>
-            <div class="card">C/C++</div>
-            <div class="card">MS Excel</div>
+            <div class="card" data-percent="90%">
+                <h3>HTML</h3>
+                <div class="progress-bar">
+                    <div class="progress-fill"></div>
+                </div>
+                <span class="progress-text">90%</span>
+            </div>
+            <div class="card" data-percent="50%">
+                <h3>CSS</h3>
+                <div class="progress-bar">
+                    <div class="progress-fill"></div>
+                </div>
+                <span class="progress-text">50%</span>
+            </div>
+            <div class="card" data-percent="50%">
+                <h3>JavaScript</h3>
+                <div class="progress-bar">
+                    <div class="progress-fill"></div>
+                </div>
+                <span class="progress-text">50%</span>
+            </div>
+            <div class="card" data-percent="50%">
+                <h3>Flask</h3>
+                <div class="progress-bar">
+                    <div class="progress-fill"></div>
+                </div>
+                <span class="progress-text">50%</span>
+            </div>
+            <div class="card" data-percent="50%">
+                <h3>Node.js</h3>
+                <div class="progress-bar">
+                    <div class="progress-fill"></div>
+                </div>
+                <span class="progress-text">50%</span>
+            </div>
+            <div class="card" data-percent="75%">
+                <h3>Machine Learning</h3>
+                <div class="progress-bar">
+                    <div class="progress-fill"></div>
+                </div>
+                <span class="progress-text">75%</span>
+            </div>
+            <div class="card" data-percent="50%">
+                <h3>MongoDB</h3>
+                <div class="progress-bar">
+                    <div class="progress-fill"></div>
+                </div>
+                <span class="progress-text">50%</span>
+            </div>
+            <div class="card" data-percent="80%">
+                <h3>Java</h3>
+                <div class="progress-bar">
+                    <div class="progress-fill"></div>
+                </div>
+                <span class="progress-text">80%</span>
+            </div>
+            <div class="card" data-percent="90%">
+                <h3>Python</h3>
+                <div class="progress-bar">
+                    <div class="progress-fill"></div>
+                </div>
+                <span class="progress-text">90%</span>
+            </div>
+            <div class="card" data-percent="75%">
+                <h3>PHP</h3>
+                <div class="progress-bar">
+                    <div class="progress-fill"></div>
+                </div>
+                <span class="progress-text">75%</span>
+            </div>
+            <div class="card" data-percent="70%">
+                <h3>SQL</h3>
+                <div class="progress-bar">
+                    <div class="progress-fill"></div>
+                </div>
+                <span class="progress-text">70%</span>
+            </div>
+            <div class="card" data-percent="90%">
+                <h3>C/C++</h3>
+                <div class="progress-bar">
+                    <div class="progress-fill"></div>
+                </div>
+                <span class="progress-text">90%</span>
+            </div>
+            <div class="card" data-percent="70%">
+                <h3>MS Excel</h3>
+                <div class="progress-bar">
+                    <div class="progress-fill"></div>
+                </div>
+                <span class="progress-text">70%</span>
+            </div>
         </div>
     </section>
 
     <section id="experience">
         <h2 class="section-title">Experience</h2>
-        <div class="timeline">
-            <div class="timeline-item">
+        <div class="card-grid">
+            <div class="card">
                 <h3>Web Development (Intern) at CodeSpeedy Pvt. Ltd.</h3>
                 <p>April 2024 - May 2024</p>
-                <p>Contributed to web development tasks by creating and enhancing websites using HTML, CSS, and JavaScript. </p>
+                <p>Contributed to web development tasks by creating and enhancing websites using HTML, CSS, and JavaScript.</p>
             </div>
-            <div class="timeline-item">
+            <div class="card">
                 <h3>Intern at ABC Ltd</h3>
                 <p>Jan 2021 - May 2021</p>
                 <p>Assisted in the development of a mobile application using React Native.</p>
@@ -492,7 +520,6 @@
                 <h3>Secondary Education</h3>
                 <p>Ramakrishna Asrama Vidyapeeth, State Board (2016 - 2017)</p>
             </div>
-            
         </div>
     </section>
 
@@ -517,6 +544,14 @@
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     entry.target.classList.add('visible');
+                    if (entry.target.id === 'skills') {
+                        const progressBars = entry.target.querySelectorAll('.card');
+                        progressBars.forEach(bar => {
+                            const percent = bar.getAttribute('data-percent');
+                            const fill = bar.querySelector('.progress-fill');
+                            fill.style.width = percent;
+                        });
+                    }
                 }
             });
         }, { threshold: 0.1 });
