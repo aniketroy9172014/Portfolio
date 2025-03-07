@@ -149,6 +149,68 @@
             box-shadow: 0 4px 15px rgba(0, 255, 136, 0.3);
         }
 
+        /* Stars */
+        .stars {
+            display: flex;
+            justify-content: center;
+            margin-top: 10px;
+        }
+
+        .star {
+            color: gold;
+            font-size: 1.5rem;
+            transition: transform 0.3s;
+        }
+
+        .star.outline {
+            color: transparent;
+            -webkit-text-stroke: 1px gold; /* Outline effect */
+        }
+
+        .star:hover {
+            transform: scale(1.2);
+        }
+
+        /* View Button Styles */
+        .view-button {
+            display: inline-block;
+            margin-top: 1rem;
+            padding: 0.5rem 1rem;
+            background: var(--primary);
+            color: var(--dark);
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 1rem;
+            transition: background 0.3s, transform 0.3s;
+        }
+
+        .view-button:hover {
+            background: #00b4d8; /* Lighter shade on hover */
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0, 255, 136, 0.3);
+        }
+
+        /* Certificate Button Styles */
+        .certificate-button {
+            display: inline-block;
+            margin-top: 1rem;
+            padding: 0.5rem 1rem;
+            background: var(--primary);
+            color: var(--dark);
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 1rem;
+            transition: background 0.3s, transform 0.3s;
+        }
+
+        .certificate-button:hover {
+            background: #00b4d8; /* Lighter shade on hover */
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0, 255, 136, 0.3);
+        }
+
         /* Progress Bar Styles */
         .progress-bar {
             background-color: var(--darker);
@@ -460,11 +522,7 @@
                 <h3>Web Development (Intern) at CodeSpeedy Pvt. Ltd.</h3>
                 <p>April 2024 - May 2024</p>
                 <p>Contributed to web development tasks by creating and enhancing websites using HTML, CSS, and JavaScript.</p>
-            </div>
-            <div class="card">
-                <h3>Intern at ABC Ltd</h3>
-                <p>Jan 2021 - May 2021</p>
-                <p>Assisted in the development of a mobile application using React Native.</p>
+                <button class="certificate-button" onclick="downloadCertificate('CodeSpeedyCertificate.pdf')">Download Certificate</button>
             </div>
         </div>
     </section>
@@ -475,14 +533,17 @@
             <div class="card">
                 <h3>Student Performance Predictor</h3>
                 <p>Developed an ML model predicting exam grades with 95% accuracy.</p>
+                <a href="https://student-performance-predictor-clxr.onrender.com" class="view-button">View Project</a>
             </div>
             <div class="card">
                 <h3>Clear Clutter</h3>
                 <p>Built a Node.js app for automated file sorting by extension.</p>
+                <a href="https://student-performance-predictor-clxr.onrender.com" class="view-button">View Project</a>
             </div>
             <div class="card">
                 <h3>User Authentication System</h3>
                 <p>Developed a secure login and signup system using PHP, MySQL, and session management for authentication.</p>
+                <a href="https://student-performance-predictor-clxr.onrender.com" class="view-button">View Project</a>
             </div>
         </div>
     </section>
@@ -490,13 +551,15 @@
     <section id="achievements">
         <h2 class="section-title">Achievements</h2>
         <div class="card-grid">
-            <div class="card">
+            <div class="card" data-stars="5">
                 <h3>Coding Competition Winner</h3>
                 <p>Won the Inter-College Coding Competition, showcasing problem-solving and algorithmic skills.</p>
+                <div class="stars"></div>
             </div>
-            <div class="card">
+            <div class="card" data-stars="3">
                 <h3>Smart India Hackathon 2024 Finalist</h3>
                 <p>Selected in the internal hackathon to represent Dr. B.C. Roy Engineering College at SIH 2024.</p>
+                <div class="stars"></div>
             </div>            
         </div>
     </section>
@@ -568,6 +631,37 @@
                     behavior: 'smooth'
                 });
             });
+        });
+
+        // Function to download certificate
+        function downloadCertificate(fileName) {
+            const link = document.createElement('a');
+            link.href = fileName; // Path to your certificate file
+            link.download = fileName;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+
+        // Add stars to achievements
+        document.querySelectorAll('.card').forEach(card => {
+            const starsContainer = card.querySelector('.stars');
+            const starCount = parseInt(card.getAttribute('data-stars'));
+            const maxStars = 5;
+
+            // Add filled stars
+            for (let i = 0; i < starCount; i++) {
+                const star = document.createElement('i');
+                star.className = 'fas fa-star star';
+                starsContainer.appendChild(star);
+            }
+
+            // Add outlined stars
+            for (let i = starCount; i < maxStars; i++) {
+                const star = document.createElement('i');
+                star.className = 'fas fa-star star outline';
+                starsContainer.appendChild(star);
+            }
         });
     </script>
 </body>
