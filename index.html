@@ -162,11 +162,6 @@
             transition: transform 0.3s;
         }
 
-        .star.outline {
-            color: transparent;
-            -webkit-text-stroke: 1px gold; /* Outline effect */
-        }
-
         .star:hover {
             transform: scale(1.2);
         }
@@ -536,14 +531,9 @@
                 <a href="https://student-performance-predictor-clxr.onrender.com" class="view-button">View Project</a>
             </div>
             <div class="card">
-                <h3>Clear Clutter</h3>
-                <p>Built a Node.js app for automated file sorting by extension.</p>
-                <a href="https://student-performance-predictor-clxr.onrender.com" class="view-button">View Project</a>
-            </div>
-            <div class="card">
                 <h3>User Authentication System</h3>
                 <p>Developed a secure login and signup system using PHP, MySQL, and session management for authentication.</p>
-                <a href="https://student-performance-predictor-clxr.onrender.com" class="view-button">View Project</a>
+                <a href="http://CyberGate.infinityfreeapp.com" class="view-button">View Project</a>
             </div>
         </div>
     </section>
@@ -556,7 +546,7 @@
                 <p>Won the Inter-College Coding Competition, showcasing problem-solving and algorithmic skills.</p>
                 <div class="stars"></div>
             </div>
-            <div class="card" data-stars="3">
+            <div class="card" data-stars="4">
                 <h3>Smart India Hackathon 2024 Finalist</h3>
                 <p>Selected in the internal hackathon to represent Dr. B.C. Roy Engineering College at SIH 2024.</p>
                 <div class="stars"></div>
@@ -592,7 +582,6 @@
             <a href="https://github.com/aniketroy9172014" target="_blank"><i class="fab fa-github"></i></a>
             <a href="https://www.linkedin.com/in/aniket-roy-94149020a/?trk=public-profile-join-page" target="_blank"><i class="fab fa-linkedin"></i></a>
             <a href="mailto:aniketroy9172014@gmail.com"><i class="far fa-envelope"></i></a>
-            <a href="https://www.instagram.com/aniketroy____?igsh=c3JpbWZuMm5qY3k2" target="_blank"><i class="fab fa-instagram"></i></a>
         </div>
     </section>
 
@@ -647,19 +636,10 @@
         document.querySelectorAll('.card').forEach(card => {
             const starsContainer = card.querySelector('.stars');
             const starCount = parseInt(card.getAttribute('data-stars'));
-            const maxStars = 5;
 
-            // Add filled stars
             for (let i = 0; i < starCount; i++) {
                 const star = document.createElement('i');
                 star.className = 'fas fa-star star';
-                starsContainer.appendChild(star);
-            }
-
-            // Add outlined stars
-            for (let i = starCount; i < maxStars; i++) {
-                const star = document.createElement('i');
-                star.className = 'fas fa-star star outline';
                 starsContainer.appendChild(star);
             }
         });
