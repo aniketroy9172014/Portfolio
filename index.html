@@ -6,40 +6,66 @@
     <title>Aniket Roy | Portfolio</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/particles.js"></script>
+
     <style>
         :root {
             --primary: #00ff8c;
+            --primary-glow: #00ff8c44;
+            --accent: #00b4d8;
             --dark: #121212;
-            --darker: #1a1a1a;
+            --darker: #181c1f;
+            --glass: rgba(18, 18, 18, 0.7);
             --light: #ffffff;
             --light-dark: #f0f0f0;
+            --shadow: 0 8px 32px 0 rgba(0, 255, 140, 0.25);
         }
 
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', sans-serif;
+            font-family: 'Segoe UI', 'Montserrat', 'Poppins', sans-serif;
         }
 
         body {
-            background: var(--dark);
-            color: white;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #181c1f 0%, #232526 100%);
+            color: var(--light);
             overflow-x: hidden;
             line-height: 1.6;
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            z-index: 0;
+            background: radial-gradient(circle at 80% 10%, var(--primary-glow), transparent 70%),
+                        radial-gradient(circle at 20% 90%, #00b4d822, transparent 70%);
+            pointer-events: none;
+            animation: bgmove 10s linear infinite alternate;
+        }
+
+        @keyframes bgmove {
+            0% { background-position: 80% 10%, 20% 90%; }
+            100% { background-position: 70% 20%, 30% 80%; }
         }
 
         /* Navbar */
+
         .navbar {
             position: fixed;
             width: 100%;
-            padding: 1rem;
-            background: rgba(18, 18, 18, 0.95);
-            backdrop-filter: blur(10px);
+            padding: 1rem 2rem;
+            background: var(--glass);
+            box-shadow: var(--shadow);
+            backdrop-filter: blur(16px) saturate(180%);
             z-index: 1000;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
         }
 
         .nav-links {
@@ -49,14 +75,16 @@
             list-style: none;
         }
 
+
         .nav-links a {
-            color: white;
+            color: var(--light);
             text-decoration: none;
             position: relative;
-            transition: 0.3s;
-            font-size: 1rem;
+            transition: color 0.3s;
+            font-size: 1.1rem;
+            letter-spacing: 0.5px;
+            padding: 0.2rem 0.5rem;
         }
-
         .nav-links a::after {
             content: '';
             position: absolute;
@@ -64,10 +92,13 @@
             left: 0;
             width: 0;
             height: 2px;
-            background: var(--primary);
-            transition: 0.3s;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            border-radius: 2px;
+            transition: width 0.3s;
         }
-
+        .nav-links a:hover {
+            color: var(--primary);
+        }
         .nav-links a:hover::after {
             width: 100%;
         }
@@ -80,41 +111,68 @@
         }
 
         /* Hero Section */
+
         .hero {
-            height: 100vh;
+            min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
             text-align: center;
             padding: 2rem;
             position: relative;
-            padding-top: 80px;
+            padding-top: 100px;
+            z-index: 1;
         }
-
         .hero h1 {
-            font-size: 10rem;
+            font-size: 5rem;
             margin-bottom: 1rem;
-            background: linear-gradient(45deg, var(--primary), #00b4d8);
+            background: linear-gradient(90deg, var(--primary), var(--accent));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            background-clip: text;
+            color: transparent;
             animation: float 3s ease-in-out infinite;
+            letter-spacing: 2px;
+            font-weight: 800;
+        }
+        .hero h2 {
+            font-size: 2.2rem;
+            font-weight: 500;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
         }
 
-        .hero h2 {
-            font-size: 3.5rem;
+        .resume-btn {
+            display: inline-block;
+            margin-top: 1.5rem;
+            padding: 0.7rem 2rem;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            color: var(--dark);
+            border: none;
+            border-radius: 30px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            box-shadow: 0 2px 12px 0 var(--primary-glow);
+            cursor: pointer;
+            transition: background 0.3s, transform 0.3s;
+        }
+        .resume-btn:hover {
+            background: linear-gradient(90deg, var(--accent), var(--primary));
+            transform: translateY(-2px) scale(1.04);
         }
 
         /* Sections */
+
         section {
             padding: 5rem 2rem;
             opacity: 0;
-            transform: translateY(20px);
-            transition: 1s;
+            transform: translateY(40px) scale(0.98);
+            transition: opacity 1s cubic-bezier(.77,0,.18,1), transform 1s cubic-bezier(.77,0,.18,1);
+            z-index: 1;
         }
-
         section.visible {
             opacity: 1;
-            transform: translateY(0);
+            transform: translateY(0) scale(1);
         }
 
         .section-title {
@@ -124,29 +182,130 @@
         }
 
         /* Cards */
+
+
         .card-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 1rem;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 2rem;
             max-width: 1200px;
             margin: 0 auto;
         }
 
+
+        /* Mobile horizontal scroll for all card sections */
+        @media (max-width: 768px) {
+            #skills .card-grid,
+            #projects .card-grid,
+            #achievements .card-grid,
+            #education .card-grid {
+                display: flex;
+                flex-wrap: nowrap;
+                overflow-x: auto;
+                gap: 1.2rem;
+                padding-bottom: 1.5rem;
+                margin-left: -1rem;
+                margin-right: -1rem;
+                scroll-snap-type: x mandatory;
+            }
+            #skills .card {
+                min-width: 140px;
+                max-width: 140px;
+                width: 140px;
+                height: 140px;
+                flex: 0 0 140px;
+                scroll-snap-align: start;
+                margin-left: 1rem;
+                margin-right: 1rem;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                aspect-ratio: 1 / 1;
+            }
+            #projects .card,
+            #achievements .card,
+            #education .card {
+                min-width: 220px;
+                flex: 0 0 80%;
+                scroll-snap-align: start;
+                margin-left: 1rem;
+                margin-right: 1rem;
+            }
+            /* Hide grid for mobile, show scroll */
+            #skills .card-grid::-webkit-scrollbar,
+            #projects .card-grid::-webkit-scrollbar,
+            #achievements .card-grid::-webkit-scrollbar,
+            #education .card-grid::-webkit-scrollbar {
+                height: 8px;
+                background: transparent;
+            }
+            #skills .card-grid::-webkit-scrollbar-thumb,
+            #projects .card-grid::-webkit-scrollbar-thumb,
+            #achievements .card-grid::-webkit-scrollbar-thumb,
+            #education .card-grid::-webkit-scrollbar-thumb {
+                background: var(--primary-glow);
+                border-radius: 4px;
+            }
+        }
+
+        /* Scroll indicator for mobile */
+        .scroll-indicator {
+            display: none;
+        }
+        @media (max-width: 768px) {
+            .scroll-indicator {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                margin-top: -1.2rem;
+                margin-bottom: 1.2rem;
+                font-size: 1.1rem;
+                color: var(--primary);
+                opacity: 0.7;
+                pointer-events: none;
+                user-select: none;
+                animation: bounce-arrow 1.5s infinite;
+            }
+            @keyframes bounce-arrow {
+                0%, 100% { transform: translateX(0); }
+                50% { transform: translateX(10px); }
+            }
+        }
+
         .card {
-            background: var(--darker);
-            padding: 1rem;
-            border-radius: 15px;
-            transition: 0.3s;
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: var(--glass);
+            box-shadow: var(--shadow);
+            padding: 2rem 1.2rem 1.5rem 1.2rem;
+            border-radius: 20px;
+            border: 1px solid rgba(255,255,255,0.08);
             text-align: center;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.3s, box-shadow 0.3s, background 0.3s;
+            z-index: 1;
         }
-
+        .card::before {
+            content: '';
+            position: absolute;
+            top: -40%; left: -40%;
+            width: 180%; height: 180%;
+            background: linear-gradient(120deg, var(--primary-glow), transparent 70%);
+            z-index: 0;
+            pointer-events: none;
+            opacity: 0.2;
+            transition: opacity 0.3s;
+        }
         .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 4px 15px rgba(0, 255, 136, 0.3);
+            transform: translateY(-8px) scale(1.03);
+            box-shadow: 0 8px 32px 0 var(--primary-glow);
+            background: rgba(0,255,140,0.08);
+        }
+        .card:hover::before {
+            opacity: 0.35;
         }
 
         /* Stars */
@@ -167,101 +326,109 @@
         }
 
         /* View Button Styles */
+
         .view-button {
             display: inline-block;
             margin-top: 1rem;
-            padding: 0.5rem 1rem;
-            background: var(--primary);
+            padding: 0.6rem 1.3rem;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
             color: var(--dark);
             border: none;
-            border-radius: 5px;
+            border-radius: 30px;
             text-decoration: none;
             font-size: 1rem;
-            transition: background 0.3s, transform 0.3s;
+            font-weight: 600;
+            transition: background 0.3s, transform 0.3s, box-shadow 0.3s;
+            box-shadow: 0 2px 12px 0 var(--primary-glow);
         }
-
         .view-button:hover {
-            background: #00b4d8; /* Lighter shade on hover */
-            transform: translateY(-2px);
-            box-shadow: 0 4px 15px rgba(0, 255, 136, 0.3);
+            background: linear-gradient(90deg, var(--accent), var(--primary));
+            transform: translateY(-2px) scale(1.04);
+            box-shadow: 0 4px 15px var(--primary-glow);
         }
 
         /* Certificate Button Styles */
+
         .certificate-button {
             display: inline-block;
             margin-top: 1rem;
-            padding: 0.5rem 1rem;
-            background: var(--primary);
+            padding: 0.6rem 1.3rem;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
             color: var(--dark);
             border: none;
-            border-radius: 5px;
+            border-radius: 30px;
             text-decoration: none;
             font-size: 1rem;
-            transition: background 0.3s, transform 0.3s;
+            font-weight: 600;
+            transition: background 0.3s, transform 0.3s, box-shadow 0.3s;
+            box-shadow: 0 2px 12px 0 var(--primary-glow);
         }
-
         .certificate-button:hover {
-            background: #00b4d8; /* Lighter shade on hover */
-            transform: translateY(-2px);
-            box-shadow: 0 4px 15px rgba(0, 255, 136, 0.3);
+            background: linear-gradient(90deg, var(--accent), var(--primary));
+            transform: translateY(-2px) scale(1.04);
+            box-shadow: 0 4px 15px var(--primary-glow);
         }
 
         /* Progress Bar Styles */
+
         .progress-bar {
-            background-color: var(--darker);
+            background: rgba(255,255,255,0.08);
             border-radius: 10px;
-            height: 10px;
+            height: 12px;
             margin: 1rem 0;
             overflow: hidden;
             position: relative;
+            box-shadow: 0 2px 8px 0 var(--primary-glow);
         }
-
         .progress-fill {
-            background: linear-gradient(90deg, var(--primary), #00b4d8);
+            background: linear-gradient(90deg, var(--primary), var(--accent));
             height: 100%;
             width: 0;
             border-radius: 10px;
-            transition: width 1s ease-in-out;
+            transition: width 1.2s cubic-bezier(.77,0,.18,1);
             position: relative;
         }
-
         .progress-text {
             display: block;
             text-align: center;
-            font-size: 0.9rem;
+            font-size: 1rem;
             color: var(--primary);
             margin-top: 0.5rem;
+            font-weight: 600;
+            letter-spacing: 1px;
         }
 
         /* Profile Picture Hover Effect */
+
         .profile-photo {
             display: block;
-            margin: 20px auto;
-            width: 300px;
+            margin: 20px auto 30px auto;
+            width: 180px;
             border-radius: 50%;
-            transition: transform 0.3s, box-shadow 0.3s;
+            border: 4px solid var(--primary);
+            box-shadow: 0 4px 32px 0 var(--primary-glow);
+            transition: transform 0.4s, box-shadow 0.4s;
+        }
+        .profile-photo:hover {
+            transform: scale(1.08) rotate(-2deg);
+            box-shadow: 0 8px 32px 0 var(--primary-glow);
         }
 
-        .profile-photo:hover {
-            transform: scale(1.1);
-            box-shadow: 0 4px 15px rgba(0, 255, 136, 0.5);
-        }
 
         .social-links {
             display: flex;
             justify-content: center;
-            gap: 2rem;
-            margin-top: 2rem;
+            gap: 2.5rem;
+            margin-top: 2.5rem;
         }
-
         .social-links a {
             color: var(--primary);
-            font-size: 2rem;
-            transition: 0.3s;
+            font-size: 2.2rem;
+            transition: color 0.3s, transform 0.3s;
         }
-
         .social-links a:hover {
-            transform: scale(1.2);
+            color: var(--accent);
+            transform: scale(1.18) rotate(-8deg);
         }
 
         /* Animations */
@@ -276,26 +443,24 @@
                 max-width: 900px;
             }
         }
-
         @media (max-width: 992px) {
             .hero h1 {
-                font-size: 3.5rem;
+                font-size: 3.2rem;
             }
-            
             .section-title {
-                font-size: 2.2rem;
+                font-size: 2.1rem;
+            }
+            .profile-photo {
+                width: 140px;
             }
         }
-
         @media (max-width: 768px) {
             .navbar {
-                padding: 0.8rem;
+                padding: 0.8rem 1rem;
             }
-
             .menu-toggle {
                 display: block;
             }
-
             .nav-links {
                 display: none;
                 flex-direction: column;
@@ -303,87 +468,73 @@
                 top: 60px;
                 left: 0;
                 width: 100%;
-                background: rgba(18, 18, 18, 0.95);
+                background: var(--glass);
                 z-index: 1000;
+                box-shadow: var(--shadow);
             }
-
             .nav-links.active {
                 display: flex;
             }
-
             .hero {
                 padding: 6rem 1.5rem 2rem;
             }
-
-            .hero h1 {
-                font-size: 2.5rem;
-            }
-
-            section {
-                padding: 4rem 1.5rem;
-            }
-
-            .card {
-                padding: 1.5rem;
-            }
-        }
-
-        @media (max-width: 576px) {
-            .nav-links {
-                gap: 1.5rem;
-                font-size: 0.9rem;
-            }
-
             .hero h1 {
                 font-size: 2.2rem;
             }
-
-            .section-title {
-                font-size: 2rem;
-                margin-bottom: 2rem;
+            section {
+                padding: 3.5rem 1rem;
             }
-
-            .social-links {
-                gap: 1.5rem;
-            }
-
-            .profile-photo {
-                width: 120px;
+            .card {
+                padding: 1.2rem;
             }
         }
-
+        @media (max-width: 576px) {
+            .nav-links {
+                gap: 1.2rem;
+                font-size: 0.95rem;
+            }
+            .hero h1 {
+                font-size: 2.8rem;
+            }
+            .hero h2 {
+                font-size: 1.5rem;
+            }
+            .section-title {
+                font-size: 1.5rem;
+                margin-bottom: 1.2rem;
+            }
+            .social-links {
+                gap: 1.2rem;
+            }
+            .profile-photo {
+                width: 180px;
+            }
+        }
         @media (max-width: 480px) {
             .nav-links {
                 flex-direction: column;
-                gap: 0.75rem;
+                gap: 0.7rem;
                 text-align: center;
             }
-
             .hero h1 {
-                font-size: 4rem;
+                font-size: 2.8rem;
             }
-
             .hero h2 {
-                font-size: 1.7rem;
+                font-size: 1.5rem;
             }
-
             .card-grid {
                 grid-template-columns: 1fr;
             }
-
             .section-title {
-                font-size: 1.8rem;
+                font-size: 1.1rem;
             }
-
             .social-links a {
-                font-size: 1.75rem;
+                font-size: 1.2rem;
             }
-
             .profile-photo {
-                width: 230px;
+                width: 150px;
             }
         }
-
         @media (hover: none) {
             .card:hover {
                 transform: none;
@@ -405,123 +556,85 @@
         </ul>
     </nav>
 
+
     <section class="hero">
         <div>
             <img src="profile.jpg.jpeg" alt="Aniket Roy" class="profile-photo">
             <h1>Aniket Roy</h1>
-            <h2>Full Stack Developer</h2>
+            <h2 id="typing-title" style="min-height:2.5em"></h2>
+            <p style="max-width: 500px; margin: 0 auto; color: #b0ffdf; font-size: 1.1rem; margin-top: 1rem;">
+                Detail-oriented MCA student with strong skills in Machine Learning, Python scripting, and full-stack development, with hands-on experience in real-world web projects.
+            </p>
+            <a href="Aniket_Roy_Resume.pdf" class="resume-btn" download>Download Resume</a>
         </div>
     </section>
 
     <section id="skills">
         <h2 class="section-title">Technical Skills</h2>
+        <div class="scroll-indicator">Swipe &rarr;</div>
         <div class="card-grid">
-            <div class="card" data-percent="90%">
-                <h3>HTML</h3>
-                <div class="progress-bar">
-                    <div class="progress-fill"></div>
-                </div>
-                <span class="progress-text">90%</span>
+            <div class="card">
+                <img src="html-logo.png" alt="HTML" style="width:60px;height:60px;object-fit:contain;margin:0 auto 1rem;">
+                <div class="skill-name">HTML</div>
             </div>
-            <div class="card" data-percent="50%">
-                <h3>CSS</h3>
-                <div class="progress-bar">
-                    <div class="progress-fill"></div>
-                </div>
-                <span class="progress-text">50%</span>
+            <div class="card">
+                <img src="css-logo.png" alt="CSS" style="width:60px;height:60px;object-fit:contain;margin:0 auto 1rem;">
+                <div class="skill-name">CSS</div>
             </div>
-            <div class="card" data-percent="50%">
-                <h3>JavaScript</h3>
-                <div class="progress-bar">
-                    <div class="progress-fill"></div>
-                </div>
-                <span class="progress-text">50%</span>
+            <div class="card">
+                <img src="javascript-logo.png" alt="JavaScript" style="width:60px;height:60px;object-fit:contain;margin:0 auto 1rem;">
+                <div class="skill-name">JavaScript</div>
             </div>
-            <div class="card" data-percent="20%">
-                <h3>EJS</h3>
-                <div class="progress-bar">
-                    <div class="progress-fill"></div>
-                </div>
-                <span class="progress-text">20%</span>
+            <div class="card">
+                <img src="ejs-logo.png" alt="EJS" style="width:60px;height:60px;object-fit:contain;margin:0 auto 1rem;">
+                <div class="skill-name">EJS</div>
             </div>
-            <div class="card" data-percent="40%">
-                <h3>Node.js</h3>
-                <div class="progress-bar">
-                    <div class="progress-fill"></div>
-                </div>
-                <span class="progress-text">40%</span>
+            <div class="card">
+                <img src="nodejs-logo.png" alt="Node.js" style="width:60px;height:60px;object-fit:contain;margin:0 auto 1rem;">
+                <div class="skill-name">Node.js</div>
             </div>
-            <div class="card" data-percent="40%">
-                <h3>Express.js</h3>
-                <div class="progress-bar">
-                    <div class="progress-fill"></div>
-                </div>
-                <span class="progress-text">40%</span>
+            <div class="card">
+                <img src="express-logo.png" alt="Express.js" style="width:60px;height:60px;object-fit:contain;margin:0 auto 1rem;">
+                <div class="skill-name">Express.js</div>
             </div>
-            <div class="card" data-percent="50%">
-                <h3>MongpDB</h3>
-                <div class="progress-bar">
-                    <div class="progress-fill"></div>
-                </div>
-                <span class="progress-text">50%</span>
+            <div class="card">
+                <img src="mongodb-logo.png" alt="MongoDB" style="width:60px;height:60px;object-fit:contain;margin:0 auto 1rem;">
+                <div class="skill-name">MongoDB</div>
             </div>
-            <div class="card" data-percent="30%">
-                <h3>Flask</h3>
-                <div class="progress-bar">
-                    <div class="progress-fill"></div>
-                </div>
-                <span class="progress-text">30%</span>
+            <div class="card">
+                <img src="flask-logo.png" alt="Flask" style="width:60px;height:60px;object-fit:contain;margin:0 auto 1rem;">
+                <div class="skill-name">Flask</div>
             </div>
-            <div class="card" data-percent="50%">
-                <h3>ML</h3>
-                <div class="progress-bar">
-                    <div class="progress-fill"></div>
-                </div>
-                <span class="progress-text">50%</span>
+            <div class="card">
+                <img src="machine-learning-logo.png" alt="ML" style="width:60px;height:60px;object-fit:contain;margin:0 auto 1rem;">
+                <div class="skill-name">ML</div>
             </div>
-            <div class="card" data-percent="60%">
-                <h3>Java</h3>
-                <div class="progress-bar">
-                    <div class="progress-fill"></div>
-                </div>
-                <span class="progress-text">60%</span>
+            <div class="card">
+                <img src="java-logo.png" alt="Java" style="width:60px;height:60px;object-fit:contain;margin:0 auto 1rem;">
+                <div class="skill-name">Java</div>
             </div>
-            <div class="card" data-percent="80%">
-                <h3>Python</h3>
-                <div class="progress-bar">
-                    <div class="progress-fill"></div>
-                </div>
-                <span class="progress-text">80%</span>
+            <div class="card">
+                <img src="python-logo.png" alt="Python" style="width:60px;height:60px;object-fit:contain;margin:0 auto 1rem;">
+                <div class="skill-name">Python</div>
             </div>
-            <div class="card" data-percent="75%">
-                <h3>PHP</h3>
-                <div class="progress-bar">
-                    <div class="progress-fill"></div>
-                </div>
-                <span class="progress-text">75%</span>
+            <div class="card">
+                <img src="php-logo.png" alt="PHP" style="width:60px;height:60px;object-fit:contain;margin:0 auto 1rem;">
+                <div class="skill-name">PHP</div>
             </div>
-            <div class="card" data-percent="70%">
-                <h3>SQL</h3>
-                <div class="progress-bar">
-                    <div class="progress-fill"></div>
-                </div>
-                <span class="progress-text">70%</span>
+            <div class="card">
+                <img src="sql-logo.png" alt="SQL" style="width:60px;height:60px;object-fit:contain;margin:0 auto 1rem;">
+                <div class="skill-name">SQL</div>
             </div>
-            <div class="card" data-percent="90%">
-                <h3>C/C++</h3>
-                <div class="progress-bar">
-                    <div class="progress-fill"></div>
-                </div>
-                <span class="progress-text">90%</span>
+            <div class="card">
+                <img src="c-logo.png" alt="C/C++" style="width:60px;height:60px;object-fit:contain;margin:0 auto 1rem;">
+                <div class="skill-name">C/C++</div>
             </div>
-            <div class="card" data-percent="70%">
-                <h3>MS Excel</h3>
-                <div class="progress-bar">
-                    <div class="progress-fill"></div>
-                </div>
-                <span class="progress-text">70%</span>
+            <div class="card">
+                <img src="excel-logo.png" alt="MS Excel" style="width:60px;height:60px;object-fit:contain;margin:0 auto 1rem;">
+                <div class="skill-name">MS Excel</div>
             </div>
         </div>
+        
     </section>
 
     <section id="experience">
@@ -587,18 +700,22 @@
         <h2 class="section-title">Education</h2>
         <div class="card-grid">
             <div class="card">
+                <img src="mca-logo1.png" alt="MCA" style="width:60px;height:60px;object-fit:contain;margin:0 auto 1rem;">
                 <h3>Master of Computer Application</h3>
                 <p>Dr. B.C. Roy Engineering College, Durgapur (2023 - 2025)</p>
             </div>
             <div class="card">
+                <img src="bcom-logo1.png" alt="B.Com" style="width:60px;height:60px;object-fit:contain;margin:0 auto 1rem;">
                 <h3>Bachelor of Commerce</h3>
                 <p>Indira Gandhi National Open University, New Delhi (2019 - 2023)</p>
             </div>
             <div class="card">
+                <img src="higher-secondary-logo1.png" alt="Higher Secondary" style="width:60px;height:60px;object-fit:contain;margin:0 auto 1rem;">
                 <h3>Higher Secondary</h3>
                 <p>Kanksha High School, State Board (2018 - 2019)</p>
             </div>
             <div class="card">
+                <img src="secondary-logo1.png" alt="Secondary Education" style="width:60px;height:60px;object-fit:contain;margin:0 auto 1rem;">
                 <h3>Secondary Education</h3>
                 <p>Ramakrishna Asrama Vidyapeeth, State Board (2016 - 2017)</p>
             </div>
@@ -615,6 +732,43 @@
     </section>
 
     <script>
+        // Typing animation for hero subtitle (two sentences)
+        (function typingAnimation() {
+            const texts = [
+                "Full Stack Developer",
+                "Machine Learning Enthusiast"
+            ];
+            const el = document.getElementById("typing-title");
+            let textIndex = 0;
+            let i = 0;
+            let isDeleting = false;
+            let speed = 70;
+            let pauseAfterTyping = 1200;
+            let pauseAfterDeleting = 600;
+
+            function type() {
+                if (!el) return;
+                const text = texts[textIndex];
+                if (!isDeleting) {
+                    el.textContent = text.substring(0, i + 1);
+                    i++;
+                    if (i === text.length) {
+                        setTimeout(() => { isDeleting = true; type(); }, pauseAfterTyping);
+                        return;
+                    }
+                } else {
+                    el.textContent = text.substring(0, i - 1);
+                    i--;
+                    if (i === 0) {
+                        textIndex = (textIndex + 1) % texts.length;
+                        setTimeout(() => { isDeleting = false; type(); }, pauseAfterDeleting);
+                        return;
+                    }
+                }
+                setTimeout(type, isDeleting ? speed / 2 : speed);
+            }
+            type();
+        })();
         function toggleMenu() {
             const navLinks = document.querySelector('.nav-links');
             navLinks.classList.toggle('active');
