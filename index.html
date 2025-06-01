@@ -646,12 +646,32 @@
             <img src="profile.jpg.jpeg" alt="Aniket Roy" class="profile-photo">
             <h1>Aniket Roy</h1>
             <h2 id="typing-title" style="min-height:2.5em"></h2>
-            <p style="max-width: 500px; margin: 0 auto; color: #b0ffdf; font-size: 1.1rem; margin-top: 1rem;">
-                Detail-oriented MCA student with strong skills in Machine Learning, Python scripting, and full-stack development, with hands-on experience in real-world web projects.
-            </p>
+<p class="hero-intro">
+    Detail-oriented MCA student with strong skills in Machine Learning, Python scripting, and full-stack development, with hands-on experience in real-world web projects.
+</p>
+            <style>
+            body.light-theme .hero p {
+                color: #232526 !important;
+            }
+            </style>
             <a href="Aniket_Roy_Resume.pdf" class="resume-btn" download>Download Resume</a>
         </div>
     </section>
+
+<style>
+/* Ensure hero intro text is black in light mode, original in dark */
+.hero-intro {
+    max-width: 500px;
+    margin: 0 auto;
+    color: #b0ffdf;
+    font-size: 1.1rem;
+    margin-top: 1rem;
+    transition: color 0.3s;
+}
+body.light-theme .hero-intro {
+    color: #232526;
+}
+</style>
 
     <section id="skills">
         <h2 class="section-title">Technical Skills</h2>
