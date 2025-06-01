@@ -18,6 +18,17 @@
             --light: #ffffff;
             --light-dark: #f0f0f0;
             --shadow: 0 8px 32px 0 rgba(0, 255, 140, 0.25);
+
+            /* Light theme variables (will be enabled via JS) */
+            --primary-light: #0057b8;
+            --primary-glow-light: #0057b822;
+            --accent-light: #ff6ec4;
+            --dark-light: #f8f9fa;
+            --darker-light: #e9ecef;
+            --glass-light: rgba(255,255,255,0.7);
+            --light-light: #232526;
+            --light-dark-light: #f0f0f0;
+            --shadow-light: 0 8px 32px 0 rgba(0, 87, 184, 0.15);
         }
 
         * {
@@ -34,6 +45,7 @@
             overflow-x: hidden;
             line-height: 1.6;
             position: relative;
+            transition: background 0.3s, color 0.3s;
         }
 
         body::before {
@@ -45,6 +57,7 @@
                         radial-gradient(circle at 20% 90%, #00b4d822, transparent 70%);
             pointer-events: none;
             animation: bgmove 10s linear infinite alternate;
+            transition: background 0.3s;
         }
 
         @keyframes bgmove {
@@ -108,6 +121,10 @@
             cursor: pointer;
             font-size: 1.5rem;
             color: white;
+            transition: color 0.3s;
+        }
+        body.light-theme .menu-toggle {
+            color: #232526;
         }
 
         /* Hero Section */
@@ -549,9 +566,69 @@
             }
         }
     </style>
+    <script>
+    // Theme switcher logic
+    function setTheme(theme) {
+        const root = document.documentElement;
+        const darkBtn = document.getElementById('dark-btn');
+        const lightBtn = document.getElementById('light-btn');
+        if (theme === 'light') {
+            root.style.setProperty('--primary', getComputedStyle(root).getPropertyValue('--primary-light'));
+            root.style.setProperty('--primary-glow', getComputedStyle(root).getPropertyValue('--primary-glow-light'));
+            root.style.setProperty('--accent', getComputedStyle(root).getPropertyValue('--accent-light'));
+            root.style.setProperty('--dark', getComputedStyle(root).getPropertyValue('--dark-light'));
+            root.style.setProperty('--darker', getComputedStyle(root).getPropertyValue('--darker-light'));
+            root.style.setProperty('--glass', getComputedStyle(root).getPropertyValue('--glass-light'));
+            root.style.setProperty('--light', getComputedStyle(root).getPropertyValue('--light-light'));
+            root.style.setProperty('--light-dark', getComputedStyle(root).getPropertyValue('--light-dark-light'));
+            root.style.setProperty('--shadow', getComputedStyle(root).getPropertyValue('--shadow-light'));
+            document.body.style.background = 'linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%)';
+            document.body.style.color = '#232526';
+            document.body.classList.add('light-theme');
+            if (darkBtn && lightBtn) {
+                darkBtn.style.opacity = '0.7';
+                lightBtn.style.opacity = '1';
+                darkBtn.style.outline = '2px solid transparent';
+                lightBtn.style.outline = '2px solid #232526';
+            }
+        } else {
+            // Reset to dark theme
+            root.style.setProperty('--primary', '#00ff8c');
+            root.style.setProperty('--primary-glow', '#00ff8c44');
+            root.style.setProperty('--accent', '#00b4d8');
+            root.style.setProperty('--dark', '#121212');
+            root.style.setProperty('--darker', '#181c1f');
+            root.style.setProperty('--glass', 'rgba(18, 18, 18, 0.7)');
+            root.style.setProperty('--light', '#ffffff');
+            root.style.setProperty('--light-dark', '#f0f0f0');
+            root.style.setProperty('--shadow', '0 8px 32px 0 rgba(0, 255, 140, 0.25)');
+            document.body.style.background = 'linear-gradient(135deg, #181c1f 0%, #232526 100%)';
+            document.body.style.color = '#ffffff';
+            document.body.classList.remove('light-theme');
+            if (darkBtn && lightBtn) {
+                darkBtn.style.opacity = '1';
+                lightBtn.style.opacity = '0.7';
+                darkBtn.style.outline = '2px solid #fff';
+                lightBtn.style.outline = '2px solid transparent';
+            }
+        }
+    }
+    // Set initial theme button state on page load
+    window.addEventListener('DOMContentLoaded', function() {
+        if (document.body.classList.contains('light-theme')) {
+            setTheme('light');
+        } else {
+            setTheme('dark');
+        }
+    });
+    </script>
 </head>
 <body>
     <nav class="navbar">
+        <div id="theme-toggle-group" style="position: absolute; right: 1.5rem; top: 1.2rem; z-index: 2000; display: flex; gap: 0.5rem;">
+            <button id="dark-btn" onclick="setTheme('dark')" style="padding: 0.3rem 0.8rem; border-radius: 8px; border: none; background: #232526; color: #fff; font-weight: 600; cursor: pointer; opacity: 1; outline: 2px solid #fff;">Dark</button>
+            <button id="light-btn" onclick="setTheme('light')" style="padding: 0.3rem 0.8rem; border-radius: 8px; border: none; background: #fff; color: #232526; font-weight: 600; cursor: pointer; opacity: 0.7; outline: 2px solid transparent;">Light</button>
+        </div>
         <div class="menu-toggle" onclick="toggleMenu()">☰</div>
         <ul class="nav-links">
             <li><a href="#skills">Skills</a></li>
